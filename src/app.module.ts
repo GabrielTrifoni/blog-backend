@@ -1,9 +1,23 @@
 import { Module } from '@nestjs/common';
-import { PostModule } from './post/post.module';
+import { PostModule } from './app/post/post.module';
+import { ConfigModule } from '@nestjs/config';
+import ormConfig from './config/orm.config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [PostModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+      load: [ormConfig],
+      expandVariables: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: ormConfig,
+    }),
+    PostModule,
+  ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

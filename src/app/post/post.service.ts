@@ -21,7 +21,9 @@ export class PostService {
         }
 
         await this.repository.save({
-            ...post,
+            ...newPost,
+            createdAt: new Date(),
+            updatedAt: new Date(),
         });
     }
 }

@@ -8,29 +8,28 @@ export class PostController {
     constructor(private readonly postService: PostService) { }
 
     @Get('')
-    findAll() {
-        return
+    async findAll() {
+        return await this.postService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
-        return
+    async findOneById(@Param('id', ParseIntPipe) id: number) {
+        return await this.postService.findOneById(id);
     }
 
     @Post()
     async create(@Body() input: CreatePostDto) {
-        const post = await this.postService.create(input);
-
-        return post;
+        return await this.postService.create(input);
     }
 
     @Patch(':id')
-    update(@Param('id') id, @Body() input: UpdatePostDto) {
-        return
+    async update(@Param('id') id, @Body() input: UpdatePostDto) {
+        return await this.postService.update(id, input);
     }
 
     @Delete(':id')
     @HttpCode(204)
     async remove(@Param('id') id) {
+        return await this.postService.delete(id);
     }
 }

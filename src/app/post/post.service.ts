@@ -12,8 +12,14 @@ export class PostService {
         private readonly repository: Repository<BlogPost>
     ) { }
 
-    async findAll() {
-        return await this.repository.find();
+    async findAll(category?: string) {
+        const queryBuilder = this.repository.createQueryBuilder('post');
+
+        if (category) {
+            queryBuilder.where('post.category = :category', { category });
+        }
+
+        return await queryBuilder.getMany();
     }
 
     async findOneById(id: number) {

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PostService } from './post.service';
@@ -8,8 +8,8 @@ export class PostController {
     constructor(private readonly postService: PostService) { }
 
     @Get('')
-    async findAll() {
-        return await this.postService.findAll();
+    async findAll(@Query('category') category?: string) {
+        return await this.postService.findAll(category);
     }
 
     @Get(':id')

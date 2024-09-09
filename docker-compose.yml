@@ -1,0 +1,10 @@
+services:
+  blog:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=blog
+    ports:
+      - "5432:5432"
